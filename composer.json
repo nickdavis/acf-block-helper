@@ -2,7 +2,7 @@
   "name": "nickdavis/acf-block-helper",
   "description": "Makes it easier to register WordPress blocks with Advanced Custom Fields PRO.",
   "type": "wordpress-muplugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
@@ -12,8 +12,7 @@
     }
   ],
   "require": {
-    "brightnucleus/view": "^0.4.9",
-    "composer/installers": "~1.0"
+    "brightnucleus/view": "^0.4.9"
   },
   "autoload": {
     "psr-4": {
