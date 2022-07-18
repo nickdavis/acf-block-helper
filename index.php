@@ -53,6 +53,16 @@ function autoload() {
 
 	if ( is_readable( $autoloader ) ) {
 		require_once $autoloader;
+	} else {
+		/**
+		 * Composer autoloader apparently was not found, so fall back to our bundled
+		 * autoloader.
+		 */
+		require_once __DIR__ . '/src/Autoloader.php';
+
+		( new Autoloader() )
+			->add_namespace( __NAMESPACE__, __DIR__ . '/src' )
+			->register();
 	}
 }
 
