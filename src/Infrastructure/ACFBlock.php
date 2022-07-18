@@ -24,15 +24,9 @@ abstract class ACFBlock implements Block, Registerable {
 
 	public function render( array $block ): void {
 		$args = [ 'args' => $this->get_args(), 'block' => $block ];
+		$path = str_replace( [ Blocks::get_prefix() . '_', '_' ], [ '', '-' ], $this->get_slug() ) . '-block';
 
-		if ( is_admin() ) {
-			$path = '/blocks/admin';
-
-		} else {
-			$path = '/blocks/' . str_replace( [ Blocks::get_prefix() . '_', '_' ], [ '', '-' ], $this->get_slug() );
-		}
-
-		echo Views::render($path, $args );
+		echo Views::render( $path, $args );
 	}
 
 	protected function get_args(): array {
@@ -71,12 +65,34 @@ abstract class ACFBlock implements Block, Registerable {
 		return '';
 	}
 
+	public function register_block(): void {
+		acf_register_block_type( array(
+			'title'           => $this->get_title(),
+			'name'            => $this->get_slug(),
+			'category'        => Blocks::get_category_slug(),
+			'icon'            => Blocks::get_icon(),
+			'render_callback' => [ $this, 'render' ],
+			'mode'            => 'auto',
+			'supports'        => [
+				'align'           => false,
+				'anchor'          => true,
+				'customClassName' => true,
+				'jsx'             => true,
+				'mode'            => false, // Disable switch to 'edit' mode.
+			]
+		) );
+	}
+
+	public function register_fields(): void {
+		$this->register_field_group( $this->get_slug(), $this->get_title(), $this->get_fields() );
+	}
+
 	/**
 	 * @param string $slug
 	 * @param string $title
-	 * @param array  $fields [ $key = '', $label = '', 'type' => '', 'width' => '' ]
+	 * @param array $fields [ $key = '', $label = '', 'type' => '', 'width' => '' ]
 	 */
-	protected static function register_field_group( string $slug, string $title, array $fields ): void {
+	protected function register_field_group( string $slug, string $title, array $fields ): void {
 		$acf_fields = [];
 
 		foreach ( $fields as $field ) {
