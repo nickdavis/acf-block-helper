@@ -32,7 +32,7 @@ abstract class ACFBlock implements Block, Registerable {
 	protected function get_args(): array {
 		$args = [];
 
-		$block_slug = str_replace( '-', '_', $this->get_slug() ) . '_';
+		$block_slug = $this->get_slug() . '_';
 
 		foreach ( $this->get_fields() as $field ) {
 			if ( 'link' === $field['type'] ) {
