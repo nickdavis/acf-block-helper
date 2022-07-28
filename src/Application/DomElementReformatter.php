@@ -35,6 +35,10 @@ final class DomElementReformatter {
 			$tags = $dom->getElementsByTagName( $tag );
 
 			foreach ( $tags as $tag ) {
+				if ( $tag->hasAttribute( 'class' ) ) {
+					$class = $tag->getAttribute( 'class' ) . ' ' . $class;
+				}
+
 				$tag->setAttribute( 'class', $class );
 			}
 		}
