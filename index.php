@@ -3,7 +3,7 @@
  * Plugin Name: ACF Block Helper
  * Plugin URI: https://github.com/nickdavis/acf-block-helper
  * Description: Makes it easier to register WordPress blocks with Advanced Custom Fields PRO.
- * Version: 2.1.2
+ * Version: 2.2.0
  * Author: Nick Davis
  * Author URI: https://nickdavis.net
  *
