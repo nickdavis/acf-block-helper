@@ -29,7 +29,17 @@ final class DomElementReformatter {
 		}
 
 		$dom = new DOMDocument();
+		/**
+		 * Suppress warnings.
+		 * @url https://stackoverflow.com/a/6090728
+		 */
+		libxml_use_internal_errors(true);
 		$dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		/**
+		 * Suppress warnings.
+		 * @url https://stackoverflow.com/a/6090728
+		 */
+		libxml_clear_errors();
 
 		foreach ( $elements as $tag => $class ) {
 			$tags = $dom->getElementsByTagName( $tag );
